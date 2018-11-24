@@ -13,16 +13,13 @@ app.use(express.static(path.join(__dirname, "./../public")));
 io.on("connection", socket => {
   console.log("Connected to Server");
 
-  //newMessage emitter
-  socket.emit("newMessage", {
-    from: "ozbo1973",
-    text: "This is how we do",
-    createdAt: Date.now()
-  });
-
-  //listen for newMessage
   socket.on("createMessage", newMessage => {
     console.log("New message: ", newMessage);
+    io.emit("newMessage", {
+      from: newMessage.from,
+      text: newMessage.text,
+      createdAt: Date.now()
+    });
   });
 
   socket.on("disconnect", () => {
