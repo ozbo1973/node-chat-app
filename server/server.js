@@ -13,6 +13,17 @@ app.use(express.static(path.join(__dirname, "./../public")));
 io.on("connection", socket => {
   console.log("Connected to Server");
 
+  socket.emit("newMessage", {
+    from: "admin",
+    text: "Welcome to the chat app",
+    createdAt: Date.now()
+  });
+  socket.broadcast.emit("newMessage", {
+    from: "admin",
+    text: "New User has joined",
+    createdAt: Date.now()
+  });
+
   socket.on("createMessage", newMessage => {
     console.log("New message: ", newMessage);
     io.emit("newMessage", {
