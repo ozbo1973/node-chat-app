@@ -4,4 +4,10 @@ const generateMessage = (from, text) => ({
   createdAt: Date.now()
 });
 
-module.exports = { generateMessage };
+const generateLocationMessage = (from, lat, lng) => ({
+  from,
+  url: `http://maps.google.com?q=${lat},${lng}`,
+  createdAt: Date.now()
+});
+
+module.exports = { generateMessage, generateLocationMessage };
