@@ -3,19 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Node Chat App</title>
+    <link rel="stylesheet" href="/css/styles.css">
   </head>
-  <body>
-    <h1>Node Chat App</h1>
+  <body class="chat">
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id='people-list'>
 
-    <ol id="message_list">
+      </div>
+    </div>
 
-    </ol>
+    <div class="chat__main">
+      <ol id="message_list" class="chat__messages"></ol>
 
-    <form id="message_form">
-      <input name='text' id='text' placeholder="type message" type="text" />
-      <button>Send</button>
-    </form>
-    <button id="btn_sendLocation">Send Location</button>
+      <div class="chat__footer">
+        <form id="message_form">
+          <input name='text' id='text' placeholder="type message..." type="text" autocomplete="off" autofocus />
+          <button>Send</button>
+        </form>
+        <button id="btn_sendLocation">Send location</button>
+      </div>
+    </div>
+
+
+
 
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script src="./js/libs/jquery-3.3.1.min.js" charset="utf-8"></script>

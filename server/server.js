@@ -34,7 +34,7 @@ io.on("connection", socket => {
   socket.on("createMessage", (newMessage, callback) => {
     console.log("New message: ", newMessage);
     io.emit("newMessage", generateMessage(newMessage.from, newMessage.text));
-    callback("From server");
+    callback();
   });
 
   socket.on("disconnect", () => {
