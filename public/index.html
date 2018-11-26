@@ -25,12 +25,34 @@
       </div>
     </div>
 
+    <script id="message-template" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{ from }}</h4>
+          <span>{{ time }}</span>
+        </div>
+        <div class="message__body">{{ text }}</div>
+      </li>
+    </script>
 
-
+    <script id="location-message-template" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{ from }}</h4>
+          <span>{{ time }}</span>
+        </div>
+        <div class="message__body">
+          <a target="_blank" href={{ url }}>
+            My current location
+          </a>
+        </div>
+      </li>
+    </script>
 
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script src="./js/libs/jquery-3.3.1.min.js" charset="utf-8"></script>
     <script src="./js/libs/moment.js" charset="utf-8"></script>
+    <script src="./js/libs/mustache.js" charset="utf-8"></script>
     <script src="./js/index.js" charset="utf-8"></script>
 
   </body>
