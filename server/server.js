@@ -16,12 +16,11 @@ app.use(express.static(path.join(__dirname, "./../public")));
 io.on("connection", socket => {
   console.log("Connected to Server");
 
-
-
   socket.on('join',(params,callback)=>{
     if(!isRealString(params.user) || !isRealString(params.room)){
       callback('Room and Display Name must be a string')
     }
+    socket.join(params.room)
     socket.emit(
       "newMessage",
       generateMessage("Admin", `Welcome ${params.user} to ChatApp Room: ${params.room}`)
