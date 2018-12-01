@@ -79,6 +79,7 @@ $(document).ready(function() {
         text: messageBox.val()
       },
       function(data) {
+        console.log(data);
         messageBox.val("");
       }
     );
@@ -93,10 +94,18 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(
       function(position) {
         locationButton.removeAttr("disabled").text("Send location");
-        socket.emit("sendLocation", {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        });
+        socket.emit(
+          "sendLocation",
+          {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          },
+          function(err) {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
       },
       function() {
         locationButton.removeAttr("disabled").text("Send location");

@@ -45,14 +45,26 @@ io.on("connection", socket => {
   });
 
   socket.on("sendLocation", coords => {
-    io.emit(
-      "newLocationMessage",
-      generateLocationMessage("Admin", coords.lat, coords.lng)
-    );
+    let user = users.getUser(socket.id);
+    if (user) {
+      io
+        .to(user.room)
+        .emit(
+          "newLocationMessage",
+          generateLocationMessage(user.user, coords.lat, coords.lng)
+        );
+    }
   });
 
   socket.on("createMessage", (newMessage, callback) => {
-    io.emit("newMessage", generateMessage(newMessage.from, newMessage.text));
+    let user = users.getUser(socket.id);
+    if (user && isRealString(newMessage.text)) {
+      io
+        .to(user.room)
+        .emit("newMessage", generateMessage(user.user, newMessage.text));
+    } else {
+      callback("No user or Not a real text.");
+    }
     callback();
   });
 
