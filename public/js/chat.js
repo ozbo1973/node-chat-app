@@ -3,15 +3,15 @@ var socket = io();
 //client socket connections
 socket.on("connect", function() {
   console.log("Client Connect");
-  var params = $.deparam(window.location.search)
-  socket.emit('join',params,function(err){
-    if (err){
-      alert(err)
-      window.location.href='/'
-    }else{
-      console.log('No Errors');
+  var params = $.deparam(window.location.search);
+  socket.emit("join", params, function(err) {
+    if (err) {
+      alert(err);
+      window.location.href = "/";
+    } else {
+      console.log("No Errors");
     }
-  })
+  });
 });
 
 function scrollToBottom() {
@@ -56,6 +56,15 @@ socket.on("newLocationMessage", function(message) {
   $("#message_list").append(html);
 });
 
+socket.on("updatedUserList", function(users) {
+  let ol = $("<ol></ol>");
+  users.forEach(user => {
+    ol.append($("<li></li>").text(user));
+  });
+  console.log(ol);
+  $("#people-list").html(ol);
+});
+
 socket.on("disconnect", function() {
   console.log("Client disconnect");
 });
@@ -67,7 +76,6 @@ $(document).ready(function() {
     socket.emit(
       "createMessage",
       {
-        from: "User",
         text: messageBox.val()
       },
       function(data) {

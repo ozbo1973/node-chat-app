@@ -10,8 +10,8 @@ class Users {
   }
 
   usersList(room) {
-    let users = this.users.filter(user => user.room === room);
-    return users.map(user => user.user);
+    let usersListing = this.users.filter(user => user.room === room);
+    return usersListing.map(user => user.user);
   }
 
   getUser(id) {
